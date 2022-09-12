@@ -66,7 +66,6 @@ export class ProductService {
    */
   deleteOne = async (code) => {
     let result = await productRepository.findOne(code);
-    console.log(result);
     if (result === null || result === undefined || result.length === 0)
       throw new Error("Product Not Found to Delete");
     await productRepository.deleteOne(code);

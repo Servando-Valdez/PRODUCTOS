@@ -110,7 +110,7 @@ while (running) {
       }
       break;
 
-    case "exit":
+    case "6":
       //salir
       running = false;
       break;

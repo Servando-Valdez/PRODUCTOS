@@ -8,7 +8,8 @@ export const showMenu = () => {
       2. Update Product with its code
       3. Delete Product with its code
       4. Search Product with its name and code
-      5. Consult all Products`;
+      5. Consult all Products
+      6. Exit`;
 };
 
 export const writeNewProduct = () => {
