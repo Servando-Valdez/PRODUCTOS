@@ -18,12 +18,12 @@ export class ProductService {
       throw new Error("Product is not complete");
     }
     let validateCode = await productRepository.findOne(product.code);
-      console.log(validateCode>0);
+      // console.log(validateCode>0);
     if (validateCode.length>0) {
       throw new Error("This Product is Registred");
     }
     await productRepository.saveProduct(product);
-    return;
+    // return;
   };
 
   /**
@@ -70,6 +70,6 @@ export class ProductService {
     if (result === null || result === undefined || result.length === 0)
       throw new Error("Product Not Found to Delete");
     await productRepository.deleteOne(code);
-    return;
+    // return;
   };
 }

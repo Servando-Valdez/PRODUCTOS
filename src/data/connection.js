@@ -7,7 +7,7 @@ export const getConnection = () =>{
         database: "products",
         user: "root",
         password: "123456",
-        timeout: '30000'
+        // timeout: '30000'
     })
     return connetion;
 }

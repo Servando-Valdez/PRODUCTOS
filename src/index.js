@@ -47,21 +47,21 @@ while (running) {
       break;
     case "2":
       //Actualizar
-       try{
-        console.log('Write the code and the new product information: ');
+      try {
+        console.log("Write the code and the new product information: ");
         let product = writeNewProduct();
-        await productController.updateProduct(product)
-       }catch(error){
+        await productController.updateProduct(product);
+      } catch (error) {
         console.error(error.message);
-       }
+      }
       break;
     case "3":
       //Eliminar
-      try{
+      try {
         await productController.deleteOneProduct(
           question("Write the code of the product you want delete: ")
         );
-      }catch(error){
+      } catch (error) {
         console.error(error.message);
       }
       break;
@@ -102,8 +102,8 @@ while (running) {
               ).showProducto()
             )
           );
-        }else{
-            console.log('no products registered');
+        } else {
+          console.log("no products registered");
         }
       } catch (err) {
         console.error(err.message);

@@ -10,7 +10,7 @@ export class ProductController {
   saveProduct = async (product) => {
     try {
       await productService.saveProduct(product);
-      return;
+      // return;
     } catch (error) {
       console.error("Error", error.message);
     }
@@ -63,7 +63,7 @@ export class ProductController {
   deleteOneProduct = async (code) => {
     try {
       await productService.deleteOne(code);
-      return;
+      // return;
       // return result;
     } catch (error) {
       console.error("Error", error.message);
