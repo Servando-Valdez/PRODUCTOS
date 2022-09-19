@@ -1,15 +1,38 @@
-import { Product } from "./model/Product.js";
 import { ProductController } from "./controller/product.controller.js";
 import moment from "moment";
-import { showMenu, writeNewProduct } from "./print.js";
+import { Product } from "./model/ProductS.js";
+import { showMenu } from "./print.js";
 import { question } from "readline-sync";
-
 const productController = new ProductController();
-
-// let id = "123459"
-// let name = "doritos";
+// const productService = new ProductService();
+// let xd = await Product.findAll({
+//   attributes: ["code", "name", "price", "stock", "createdAt", "updatedAt"]
+// })
+// console.log(xd);
+// xd.map(p => console.log(p.getDataValue));
+// let xd2 = xd.map(p=>Product.build());
+// console.log(xd);
+// let code = "123456";
+// let name = "atun";
 // let price = 15.5;
 // let stock = 20;
+// await productService.saveProduct(Product.build({ code, name, price, stock }).dataValues);
+// let product = Product.build({code: code, name: name, price: price, stock: stock})
+// await Product.create(product)
+// await Product.create({
+//   code: code,
+//   name: name,
+//   price: price,
+//   stock: stock
+// }, {fields: ['code', 'name', 'price', 'stock']});
+// let product = Product.build({code: code, name: name, price: price, stock: stock});
+
+// await product.save();
+// if(product instanceof Product){
+//   console.log(product);
+// }else{
+//   console.log('chale padrino');
+// }
 // let date = moment().format('YYYY-MM-DD hh:mm:ss');
 // let producto = new Product(id, name, price, stock, date);
 // productController.saveProduct(producto);
@@ -23,13 +46,39 @@ const productController = new ProductController();
 // console.log(await productController.deleteOneProduct('123456'));
 // let result = await productController.deleteOneProduct('123456');
 
+const writeNewProduct = () => {
+  let code = question(`Product's code: `);
+  let name = question(`Product's name: `);
+  let price = question(`Product's price: `);
+  let stock = question(`Product's stock: `);
+  // let date = moment().format('YYYY-MM-DD hh:mm:ss');
+
+  // let product = new Product(code, name, price, stock, date);
+  let product = Product.build({ code, name, price, stock }).dataValues;
+  return product;
+};
+
+const printProduct = (product) => {
+  // console.log(product.toJSON());
+  // const { code, name, price, stock, createdAt, updatedAt } = product.toJSON();
+  const { code, name, price, stock, createdAt, updatedAt } = product.dataValues;
+  console.log(
+    `Product: 
+      code: ${code},
+      name: ${name},
+      price: ${price},
+      stock: ${stock},
+      created: ${moment(createdAt).format("MMMM Do YYYY, h:mm:ss a")},
+      updated: ${moment(updatedAt).format("MMMM Do YYYY, h:mm:ss a")}`);
+};
+
 let running = true;
 
 console.log(`Welcome, In this program you can to register,
 update, delete, search and consult products`);
 
 console.log(`Warning, code must not have more 6 characters and must be unique,
-name must not have more 1000 characters, price most be a number, stock must be a number, 
+name must not have more 1000 characters, price most be a number, stock must be a number,
 and date must be a date`);
 
 while (running) {
@@ -72,15 +121,9 @@ while (running) {
           question("Write the code or name of the product: ")
         );
         if (result) {
-          console.log(
-            new Product(
-              result.code,
-              result.name,
-              result.price,
-              result.stock,
-              result.date
-            ).showProducto()
-          );
+          printProduct(result);
+        }else{
+          console.log('Product Not Found');
         }
       } catch (error) {
         console.error(error.message);
@@ -90,19 +133,15 @@ while (running) {
       //buscar todos
       try {
         let result = await productController.findAllProducts();
+        // console.log(result);
         if (result) {
-          result.map((row) =>
-            console.log(
-              new Product(
-                row.code,
-                row.name,
-                row.price,
-                row.stock,
-                row.date
-              ).showProducto()
-            )
+          result.map(
+            (row) => {
+              // printProduct(row);
+              printProduct(row)
+            }
           );
-        } else {
+        }else {
           console.log("no products registered");
         }
       } catch (err) {
@@ -113,6 +152,7 @@ while (running) {
     case "6":
       //salir
       running = false;
+      // Product.close();
       break;
 
     default:

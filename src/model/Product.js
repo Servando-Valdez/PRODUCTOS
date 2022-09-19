@@ -1,7 +1,15 @@
 import moment from "moment";
 
 export class Product {
-  constructor(code = "", name = "", price = 0.0, stock = 0, date = null) {
+  // constructor(code = "", name = "", price = 0.0, stock = 0, date = null) {
+  //   this.code = code;
+  //   this.name = name;
+  //   this.price = price;
+  //   this.stock = stock;
+  //   this.date = date;
+  // }
+
+  constructor(code = "", name = "", price = 0.0, stock = 0) {
     this.code = code;
     this.name = name;
     this.price = price;
@@ -61,24 +69,24 @@ export class Product {
     return this._stock;
   }
 
-  set date(valor) {
-    // if (!(valor instanceof Date) || valor === null) {
-    //   throw new Error("Date most be a Moment Object");
-    // }
-    this._date = valor;
-  }
+  // set date(valor) {
+  //   // if (!(valor instanceof Date) || valor === null) {
+  //   //   throw new Error("Date most be a Moment Object");
+  //   // }
+  //   this._date = valor;
+  // }
 
-  get date() {
-    return this._date;
-  }
+  // get date() {
+  //   return this._date;
+  // }
 
   showProducto() {
     return `Producto:
         Code: ${this._code},
         Name: ${this._name},
         Price: ${parseFloat(this._price)},
-        Stock: ${this._stock},
-        Date: ${moment(this._date).format('MMMM Do YYYY')}`;
+        Stock: ${this._stock}`
+        // Date: ${moment(this._date).format('MMMM Do YYYY')}`;
     //Date: ${this._date.format("MMMM Do YYYY")}
   }
 }

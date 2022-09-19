@@ -1,10 +1,11 @@
-import { ProductRepository } from "../data/repositories/product.repository.js";
+// import { ProductRepository } from "../data/repositories/product.repository.js";
+import { ProductRepository } from "../data/repositories/productSequelize.repository.js";
 const productRepository = new ProductRepository();
 export class ProductService {
   /**
    * Function that save a product
-   * @param {*} product 
-   * @returns 
+   * @param {*} product
+   * @returns
    */
   saveProduct = async (product) => {
     if (
@@ -12,34 +13,32 @@ export class ProductService {
       !product.code ||
       !product.name ||
       !product.price ||
-      !product.stock ||
-      !product.date
+      !product.stock
     ) {
       throw new Error("Product is not complete");
     }
-    let validateCode = await productRepository.findOne(product.code);
-      // console.log(validateCode>0);
-    if (validateCode.length>0) {
-      throw new Error("This Product is Registred");
-    }
+
+    let result = await productRepository.findOne(product.code);
+    if (result !== null)
+      throw new Error("Product Repeated");
     await productRepository.saveProduct(product);
-    // return;
+    return;
   };
 
   /**
    * Function that update a product
-   * @param {*} product 
+   * @param {*} product
    */
-  update = async(product) =>{
+  update = async (product) => {
     let result = await productRepository.findOne(product.code);
-    if(result === null || result === undefined || result.length === 0)
-      throw new Error('Product Not Found to update');
+    if (result === null || result === undefined || result.length === 0)
+      throw new Error("Product Not Found to update");
     await productRepository.update(product);
-  }
+  };
 
   /**
    * Gets all products
-   * @returns Product arrays 
+   * @returns Product arrays
    */
   findAll = async () => {
     let result = await productRepository.findAll();
@@ -49,20 +48,19 @@ export class ProductService {
 
   /**
    * Get a specific product
-   * @param {*} search 
-   * @returns 
+   * @param {*} search
+   * @returns
    */
   findOne = async (search) => {
     let result = await productRepository.findOne(search);
-    // console.log(result);
-    if (result.length === 0) throw new Error("product could not be obtained");
+    if (result.length === 0 || result === null) throw new Error("product could not be obtained");
     return result;
   };
 
   /**
    * Delete a product with the code
-   * @param {*} code 
-   * @returns 
+   * @param {*} code
+   * @returns
    */
   deleteOne = async (code) => {
     let result = await productRepository.findOne(code);

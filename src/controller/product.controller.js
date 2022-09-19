@@ -12,7 +12,7 @@ export class ProductController {
       await productService.saveProduct(product);
       // return;
     } catch (error) {
-      console.error("Error", error.message);
+      console.error("Error:", error.message);
     }
   };
 
@@ -35,6 +35,7 @@ export class ProductController {
   findAllProducts = async () => {
     try {
       const result = await productService.findAll();
+      // console.log('todo bien en controller');
       return result;
     } catch (error) {
       console.error("Error", error.message);
@@ -49,7 +50,7 @@ export class ProductController {
   findOneProduct = async (search) => {
     try {
       const result = await productService.findOne(search);
-      return result[0];
+      return result;
     } catch (error) {
       console.error(error.message);
     }

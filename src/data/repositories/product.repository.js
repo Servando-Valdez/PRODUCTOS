@@ -21,11 +21,10 @@ export class ProductRepository {
             reject(new Error(err.code));
           }
           console.log("SAVED PRODUCT");
-          resolve('Producto Agregado');
+          resolve("Producto Agregado");
         });
         con.end();
       });
-      
     });
   };
 
@@ -83,11 +82,11 @@ export class ProductRepository {
     return new Promise((resolve, reject) => {
       const con = getConnection();
       con.connect((err) => {
-        if (err)  reject(new Error(err));
+        if (err) reject(new Error(err));
         const sqlQuery = `SELECT * FROM product WHERE code = '${search}' OR name = '${search}'`;
         con.query(sqlQuery, (err, result) => {
-          if (err)  reject(new Error("Product Not Found"));
-           resolve(result);
+          if (err) reject(new Error("Product Not Found"));
+          resolve(result);
         });
         con.end();
       });
